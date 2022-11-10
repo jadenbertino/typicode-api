@@ -15,7 +15,7 @@ function getRoot() {
 
 function createUserHTML(user) {
   return `
-  <div class="user" onclick="goToPostsByUser(${user.id})">
+  <div class="user" onclick="goToPostsByUser(${user.id}, '${user.name}')">
     <div class="user-card">
       <div class="user-card__container">
         <h3>${user.name}</h4>
@@ -26,7 +26,6 @@ function createUserHTML(user) {
     </div>
   </div>
   `
-  return html
 }
 
 async function main() {
@@ -36,7 +35,7 @@ async function main() {
   document.querySelector(".user-list").innerHTML = usersHTML;
 }
 
-function goToPostsByUser(id) {
+function goToPostsByUser(id, name) {
   // stores user id local storage then goes to user.html
   /*
   local storage saves it in cache, so that it retains even on refresh
@@ -44,10 +43,10 @@ function goToPostsByUser(id) {
   window.location.origin = the root domain of the window
   */
   localStorage.setItem("id", id);
+  localStorage.setItem("name", name);
   window.location.href= `${root}/user.html`;
   // go to user.js for next steps
 }
 
 root = getRoot();
 main();
-getPosts();

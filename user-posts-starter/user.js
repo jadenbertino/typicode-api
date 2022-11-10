@@ -36,6 +36,7 @@ async function displayPosts() {
 
   // get id of last clicked user
   const id = localStorage.getItem("id");
+  const name = localStorage.getItem("name");
 
   // get all posts by user
   const posts = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`);
@@ -43,7 +44,10 @@ async function displayPosts() {
 
   // generate html + display
   renderPostHTML(postsData);
+  document.querySelector(".header").textContent = `Posts By ${name}`;
 }
+
+
 
 // Ensure back button works properly
 const root = getRoot();
