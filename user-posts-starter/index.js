@@ -36,18 +36,22 @@ function createUserHTML(user) {
 }
 
 function showUserPosts(id) {
-  // local storage saves it in cache, so that it retains even on refresh
+  /*
+  local storage saves it in cache, so that it retains even on refresh
+  window.location.href = the full url of the window
+  window.location.origin = the root domain of the window
+  */
   localStorage.setItem("id", id);
-  // window.location.href = the full url of the window
-  // window.location.origin = the root domain of the window
   window.location.href= `${root}/user.html`;
+  getPosts();
 }
 
 async function getPosts() {
+  // showUserPosts sets id in local storage to last clicked user
+  // this function displays posts of that id
   const id = localStorage.getItem("id");
   const posts = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`);
   const postsData = await posts.json();
-  console.log(postsData);
 }
 
 root = getRoot();
