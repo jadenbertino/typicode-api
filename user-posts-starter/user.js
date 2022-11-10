@@ -12,8 +12,7 @@ function getRoot() {
   };
 }
 
-
-function createPostHTML (posts) {
+function renderPostHTML(posts) {
   postsList.innerHTML = posts.map(post => {
     return `
     <div class="post">
@@ -39,11 +38,8 @@ async function getPosts() {
   const posts = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`);
   const postsData = await posts.json();
 
-  // generate html
-  createPostHTML(postsData);
-  console.log(postsData);
-
-  // set html of page
+  // generate html + display
+  renderPostHTML(postsData);
 }
 
 
