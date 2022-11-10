@@ -28,10 +28,13 @@ function renderPostHTML(posts) {
 }
 
 async function getPosts() {
-  // showUserPosts sets id in local storage to last clicked user
-  // this function displays posts of that id
+  /*
+  gets id of last clicked user
+  gets all posts by that user
+  generates html to display
+  */
 
-  // get last clicked user
+  // get id of last clicked user
   const id = localStorage.getItem("id");
 
   // get all posts by user
@@ -42,18 +45,10 @@ async function getPosts() {
   renderPostHTML(postsData);
 }
 
-
-root = getRoot();
-
+// Ensure back button works properly
+const root = getRoot();
 const backBtn = document.querySelector("#back-button");
 backBtn.setAttribute("href", root);
+
+// Display posts by last clicked or searched user
 getPosts();
-/*
-- get id in storage
-- find matching user
-- display posts by that user
-  - get all posts
-  - filter by matching id
-  - generate html
-  - set html of page
-*/
