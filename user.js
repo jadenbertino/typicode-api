@@ -12,7 +12,7 @@ function getRoot() {
   };
 }
 
-function renderPostHTML(posts) {
+function renderPostsHTML(posts) {
   postsListElem.innerHTML = posts.map(post => {
     return `
     <div class="post">
@@ -29,12 +29,11 @@ function renderPostHTML(posts) {
 
 async function displayPosts() {
   /*
-  gets id of last clicked user
+  gets id and name from local storage (comes from last clicked / searched user)
   gets all posts by that user
   generates html to display
   */
 
-  // get id of last clicked user
   const id = localStorage.getItem("id");
   const name = localStorage.getItem("name");
 
@@ -42,8 +41,8 @@ async function displayPosts() {
   const posts = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`);
   const postsData = await posts.json();
 
-  // generate html + display
-  renderPostHTML(postsData);
+  // Render & Display Posts
+  renderPostsHTML(postsData);
   document.querySelector(".header").textContent = `Posts By ${name}`;
 }
 
@@ -58,3 +57,19 @@ backBtn.setAttribute("href", root);
 displayPosts();
 
 // User search -> display posts
+document.querySelector(".post__search").addEventListener("input", async (event) => {
+  const id = event.target.value;
+  localStorage.setItem("id", id);
+
+  // get & store name
+  // fetch and json are both promises so you need to wait for each. can nest await 
+  const users = await (await fetch("https://jsonplaceholder.typicode.com/users")).json(); 
+  for (let user of users) {
+    if (user.id == id) { // id is str, user.id is number
+      localStorage.setItem("name", user.username);
+      break;
+    }
+  }
+  
+  displayPosts();
+})
