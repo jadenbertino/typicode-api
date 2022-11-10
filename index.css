@@ -68,6 +68,10 @@ p {
   padding: 2px 16px;
 }
 
+.website {
+  pointer-events: none
+}
+
 .back-btn {
   color: #fff;
   background-color: black;
