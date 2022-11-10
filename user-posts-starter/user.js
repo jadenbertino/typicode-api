@@ -1,6 +1,6 @@
 // href = http://127.0.0.1:5501/6.%20Users/user-posts-starter/index.html
 // origin = http://127.0.0.1:5501
-const postsList = document.querySelector(".posts-list");
+const postsListElem = document.querySelector(".posts-list");
 
 function getRoot() {
   let url = window.location.href;
@@ -13,7 +13,7 @@ function getRoot() {
 }
 
 function renderPostHTML(posts) {
-  postsList.innerHTML = posts.map(post => {
+  postsListElem.innerHTML = posts.map(post => {
     return `
     <div class="post">
       <div class="post__title">
@@ -27,7 +27,7 @@ function renderPostHTML(posts) {
   }).join("");
 }
 
-async function getPosts() {
+async function displayPosts() {
   /*
   gets id of last clicked user
   gets all posts by that user
@@ -50,5 +50,7 @@ const root = getRoot();
 const backBtn = document.querySelector("#back-button");
 backBtn.setAttribute("href", root);
 
-// Display posts by last clicked or searched user
-getPosts();
+// Display posts by last clicked user from index.html
+displayPosts();
+
+// User search -> display posts
